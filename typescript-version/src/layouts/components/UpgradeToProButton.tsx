@@ -17,6 +17,7 @@ const BuyNowButton = () => {
   const [open, setOpen] = useState<boolean>(false)
   const [popperElement, setPopperElement] = useState(null)
   const [referenceElement, setReferenceElement] = useState(null)
+  console.log(typeof setReferenceElement)
 
   const { styles, attributes, update } = usePopper(referenceElement, popperElement, {
     placement: 'top-end'
@@ -36,7 +37,7 @@ const BuyNowButton = () => {
       className='upgrade-to-pro-button mui-fixed'
       sx={{ right: theme => theme.spacing(20), bottom: theme => theme.spacing(10), zIndex: 11, position: 'fixed' }}
     >
-      <Button
+      {/* <Button
         component='a'
         target='_blank'
         variant='contained'
@@ -54,7 +55,7 @@ const BuyNowButton = () => {
         }}
       >
         Upgrade To Pro
-      </Button>
+      </Button> */}
       <Fade in={open} timeout={700}>
         <Box
           style={styles.popper}

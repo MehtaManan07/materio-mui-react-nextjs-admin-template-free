@@ -14,7 +14,8 @@ import TableCollapsible from 'src/views/tables/TableCollapsible'
 import TableStickyHeader from 'src/views/tables/TableStickyHeader'
 
 const MUITable = () => {
-  return (
+
+return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <Typography variant='h5'>
