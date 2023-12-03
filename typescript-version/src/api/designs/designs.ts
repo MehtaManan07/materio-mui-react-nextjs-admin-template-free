@@ -1,6 +1,7 @@
 import { DesignRoot } from 'src/@core/hooks/useFetchDesigns'
 
-const uri = 'http://localhost:5001'
+const uri = process.env.NEXT_PUBLIC_API_URL
+console.log({uriiii: uri})
 
 const getDesigns = async (): Promise<{ success: boolean; data: DesignRoot[] }> => {
   const response = await fetch(`${uri}/products`)

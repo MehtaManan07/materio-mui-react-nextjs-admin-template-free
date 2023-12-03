@@ -1,9 +1,48 @@
-import { useQuery, UseQueryOptions } from 'react-query'
+// import { useQuery, UseQueryOptions } from 'react-query'
 
+// import getDesigns from 'src/api/designs/designs'
+
+// type ApiType = Awaited<ReturnType<typeof getDesigns>>
+
+// const REQUEST_RETRY_COUNT = 3
+
+// interface Options<TData>
+//   extends Omit<UseQueryOptions<ApiType, unknown, TData>, 'queryKey' | 'queryFn' | 'cacheTime' | 'select'> {
+//   select?: (data: ApiType) => TData
+// }
+
+// const useFetchDesigns = <T = ApiType>({ onError, ...options }: Options<T> = {}) => {
+//   const initQuery = useQuery({
+//     queryKey: ['designs data'],
+//     queryFn: async () => {
+//       const data = await getDesigns()
+
+//       return data
+//     },
+//     cacheTime: Infinity,
+//     enabled: true,
+//     refetchOnReconnect: true,
+//     refetchOnWindowFocus: true,
+//     retry: REQUEST_RETRY_COUNT,
+//     staleTime: Infinity,
+//     onError: error => {
+//       if (onError) {
+//         onError(error)
+//       }
+//     },
+//     ...options
+//   })
+
+//   return initQuery
+// }
+
+// export default useFetchDesigns
+import { useQuery, UseQueryOptions } from 'react-query'
 import getDesigns from 'src/api/designs/designs'
 
-type ApiType = Awaited<ReturnType<typeof getDesigns>>
+const REQUEST_RETRY_COUNT = 3
 
+type ApiReturnType = Awaited<ReturnType<typeof getDesigns>>
 interface Root {
   id: number
   design_name: string
@@ -39,27 +78,27 @@ export interface ProductCategory {
   category_name: string
 }
 
-const REQUEST_RETRY_COUNT = 3
-
 interface Options<TData>
-  extends Omit<UseQueryOptions<ApiType, unknown, TData>, 'queryKey' | 'queryFn' | 'cacheTime' | 'select'> {
-  select?: (data: ApiType) => TData
+  extends Omit<
+    UseQueryOptions<ApiReturnType, unknown, TData, string[]>,
+    'queryKey' | 'queryFn' | 'cacheTime' | 'select'
+  > {
+  select?: (data: ApiReturnType) => TData
 }
 
-const useFetchDesigns = <T = ApiType>({ onError, ...options }: Options<T> = {}) => {
-  const initQuery = useQuery({
-    queryKey: ['designs data'],
+const useFetchMemeOfficerData = <T = ApiReturnType>({ onError, ...options }: Options<T>) => {
+  const ugcMemeOfficerQuery = useQuery({
+    queryKey: ['meme officer data'],
     queryFn: async () => {
       const data = await getDesigns()
 
       return data
     },
-    cacheTime: Infinity,
-    enabled: true,
     refetchOnReconnect: true,
     refetchOnWindowFocus: true,
-    retry: REQUEST_RETRY_COUNT,
+    cacheTime: 1000 * 60 * 5,
     staleTime: Infinity,
+    retry: REQUEST_RETRY_COUNT,
     onError: error => {
       if (onError) {
         onError(error)
@@ -68,8 +107,8 @@ const useFetchDesigns = <T = ApiType>({ onError, ...options }: Options<T> = {}) 
     ...options
   })
 
-  return initQuery
+  return ugcMemeOfficerQuery
 }
 
-export default useFetchDesigns
+export default useFetchMemeOfficerData
 export type { Root as DesignRoot }
